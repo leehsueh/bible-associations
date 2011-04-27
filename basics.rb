@@ -2,27 +2,19 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader' if development?
 
-topics = {
-            'Baptism' => 'John 3:5',
-            'Footwashing' => 'John 13',
-            'Holy Communion' => 'John 6:53',
-            'Come to me, you who are weary' => 'Matthew 11:28',
-            'All have sinned.' => 'Romans 3:23',
-            'Salvation only in Jesus\'s name' => 'Acts 4:12',
-        }
+questions = {
+    'True or False: Israel sinned by asking for a king.' => 'True',
+}
 
 get '/' do
-    @topics = topics
+    @topics = questions
     erb :home
 end
 
 get '/random' do
-    if rand(2) == 0
-        arr = topics.keys
-    else
-        arr = topics.values
-    end
+    arr = questions.keys
     @text = arr[rand(arr.length)]
+    @answer = questions[@text]
     erb :random
 end
 
